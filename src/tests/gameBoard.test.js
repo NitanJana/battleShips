@@ -32,3 +32,11 @@ test("GameBoard places a ship properly", () => {
   expect(board[0][1]).toEqual(newShip);
   expect(board[0][2]).toEqual(newShip);
 });
+
+test("Ship start position validity check", () => {
+  const gameBoard = GameBoard(10);
+  const newShip = Ship(3);
+  expect(gameBoard.placeShip(-1, 0, newShip)).toBe(false);
+  expect(gameBoard.placeShip(0, -2, newShip)).toBe(false);
+  expect(gameBoard.placeShip(-1, -2, newShip)).toBe(false);
+});
