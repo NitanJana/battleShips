@@ -22,10 +22,20 @@ const GameBoard = (size = 10) => {
     return false;
   };
 
+  const isNeighborTaken = (row, column,ship) => {
+    for (let i = row - 1; i <= row + 1; i += 1) {
+      for (let j = column - 1; j <= column + ship.getLength(); j += 1) {
+        if (!isShipStartOutOfBounds(i, j) && board[i][j]) return true;
+      }
+    }
+    return false;
+  };
+
   const isValidPosition = (row, column, ship) => {
     if (isShipStartOutOfBounds(row, column)) return false;
     if (isShipEndOutOfBounds(column, ship)) return false;
     if (isPositionTaken(row, column, ship)) return false;
+    if (isNeighborTaken(row, column, ship)) return false;
     return true;
   };
 
