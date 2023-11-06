@@ -56,3 +56,13 @@ test("Cannot place ship if position is already taken", () => {
   const newShip2 = Ship(4);
   expect(gameBoard.placeShip(1, 1, newShip2)).toBe(false);
 });
+
+test("Cannot place ship if neighbouring positions are already taken", () => {
+  const gameBoard = GameBoard(10);
+  const newShip = Ship(3);
+  expect(gameBoard.placeShip(2, 5, newShip)).toBe(true);
+  const newShip2 = Ship(4);
+  expect(gameBoard.placeShip(2, 0, newShip2)).toBe(true);
+  expect(gameBoard.placeShip(2, 0, newShip2)).toBe(false);
+  expect(gameBoard.placeShip(3, 1, newShip2)).toBe(false);
+});
