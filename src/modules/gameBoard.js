@@ -9,8 +9,16 @@ const GameBoard = (size = 10) => {
 
   const fetchBoard = () => board;
 
+  const placeShip = (row, column, ship) => {
+    for (let i = 0; i < ship.getLength(); i += 1) {
+      board[row][column + i] = ship;
+    }
+    return true;
+  };
+
   return {
     fetchBoard,
+    placeShip,
   };
 };
 
