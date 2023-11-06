@@ -9,7 +9,16 @@ const GameBoard = (size = 10) => {
 
   const fetchBoard = () => board;
 
+  const isShipStartOutOfBounds = (row, column) =>
+    row < 0 || column < 0 || row >= size || column >= size;
+
+  const isValidPosition = (row, column) => {
+    if (isShipStartOutOfBounds(row, column)) return false;
+    return true;
+  };
+
   const placeShip = (row, column, ship) => {
+    if (!isValidPosition(row, column, ship)) return false;
     for (let i = 0; i < ship.getLength(); i += 1) {
       board[row][column + i] = ship;
     }
