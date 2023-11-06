@@ -40,3 +40,11 @@ test("Ship start position validity check", () => {
   expect(gameBoard.placeShip(0, -2, newShip)).toBe(false);
   expect(gameBoard.placeShip(-1, -2, newShip)).toBe(false);
 });
+
+test("Ending position validity of ships", () => {
+  const gameBoard = GameBoard(10);
+  const newShip = Ship(3);
+  expect(gameBoard.placeShip(1, 7, newShip)).toBe(false);
+  expect(gameBoard.placeShip(7, 15, newShip)).toBe(false);
+  expect(gameBoard.placeShip(-1, 10, newShip)).toBe(false);
+});
