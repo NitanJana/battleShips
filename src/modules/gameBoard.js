@@ -12,8 +12,12 @@ const GameBoard = (size = 10) => {
   const isShipStartOutOfBounds = (row, column) =>
     row < 0 || column < 0 || row >= size || column >= size;
 
-  const isValidPosition = (row, column) => {
+  const isShipEndOutOfBounds = (column, ship) =>
+    column + ship.getLength() >= size;
+
+  const isValidPosition = (row, column, ship) => {
     if (isShipStartOutOfBounds(row, column)) return false;
+    if (isShipEndOutOfBounds(column, ship)) return false;
     return true;
   };
 
