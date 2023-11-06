@@ -1,4 +1,5 @@
 import GameBoard from "../modules/gameBoard";
+import Ship from "../modules/ship";
 
 test("Returns a board with default size", () => {
   const gameBoard = GameBoard();
@@ -20,4 +21,14 @@ test("Board cells are null", () => {
   expect(board.length).toBe(10);
   expect(board.every((row) => row.length === 10)).toBe(true);
   expect(board.every((row) => row.every((cell) => cell === null))).toBe(true);
+});
+
+test("GameBoard places a ship properly", () => {
+  const gameBoard = GameBoard();
+  const board = gameBoard.fetchBoard();
+  const newShip = Ship(3);
+  expect(gameBoard.placeShip(0, 0, newShip)).toBe(true);
+  expect(board[0][0]).toEqual(newShip);
+  expect(board[0][1]).toEqual(newShip);
+  expect(board[0][2]).toEqual(newShip);
 });
