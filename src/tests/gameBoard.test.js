@@ -84,3 +84,11 @@ test("Ending position validity of vertical ship", () => {
   expect(gameBoard.placeShip(15, 7, newShip, true)).toBe(false);
   expect(gameBoard.placeShip(10, -1, newShip, true)).toBe(false);
 });
+
+test("Cannot place ship(vertical) if position is already taken", () => {
+  const gameBoard = GameBoard(10);
+  const newShip = Ship(3);
+  expect(gameBoard.placeShip(1, 1, newShip, true)).toBe(true);
+  const newShip2 = Ship(4);
+  expect(gameBoard.placeShip(3, 1, newShip2, true)).toBe(false);
+});
