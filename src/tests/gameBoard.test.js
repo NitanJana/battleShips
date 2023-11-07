@@ -102,3 +102,28 @@ test("(vertical) Cannot place ship if neighbouring positions are already taken",
   expect(gameBoard.placeShip(1, 3, newShip2, true)).toBe(false);
   expect(gameBoard.placeShip(1, 1, newShip2, true)).toBe(false);
 });
+
+test("recieveAttack returns false for out of bound coordinates", () => {
+  const gameBoard = GameBoard(10);
+  const newShip = Ship(3);
+  gameBoard.placeShip(4, 2, newShip, true);
+  expect(gameBoard.recieveAttack(11, 2)).toBe(false);
+});
+
+test("recieveAttack increases hits of the ship at coordinates", () => {
+  const gameBoard = GameBoard(10);
+  const newShip = Ship(3);
+  gameBoard.placeShip(4, 2, newShip, true);
+  expect(gameBoard.recieveAttack(4, 2)).toBe(true);
+  expect(newShip.getHits()).toBe(1);
+  expect(gameBoard.recieveAttack(5, 2)).toBe(true);
+  expect(newShip.getHits()).toBe(2);
+});
+
+test("recieveAttack returns missed if attack misses a shot", () => {
+  const gameBoard = GameBoard(10);
+  const newShip = Ship(3);
+  gameBoard.placeShip(4, 2, newShip, true);
+  expect(gameBoard.recieveAttack(3, 2)).toBe(false);
+  expect(gameBoard.fetchMissedShots()[3][2]).toBe(true);
+});
