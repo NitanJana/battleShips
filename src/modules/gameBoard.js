@@ -1,6 +1,7 @@
 const GameBoard = (size = 10) => {
   const board = [];
   const missedShots = [];
+  const ships = [];
   for (let i = 0; i < size; i += 1) {
     board.push([]);
     missedShots.push([]);
@@ -70,6 +71,7 @@ const GameBoard = (size = 10) => {
         board[row][column + i] = ship;
       }
     }
+    ships.push(ship);
     return true;
   };
 
@@ -83,11 +85,14 @@ const GameBoard = (size = 10) => {
     return false;
   };
 
+  const isAllShipsSunk = () => ships.every((ship) => ship.isSunk() === true);
+
   return {
     fetchBoard,
     placeShip,
     recieveAttack,
     fetchMissedShots,
+    isAllShipsSunk,
   };
 };
 
