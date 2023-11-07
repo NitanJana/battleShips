@@ -127,3 +127,20 @@ test("recieveAttack returns missed if attack misses a shot", () => {
   expect(gameBoard.recieveAttack(3, 2)).toBe(false);
   expect(gameBoard.fetchMissedShots()[3][2]).toBe(true);
 });
+
+test("Check if all ships are sunk", () => {
+  const gameBoard = GameBoard(10);
+  const newShip = Ship(3);
+  gameBoard.placeShip(2, 2, newShip);
+  const newShip2 = Ship(3);
+  gameBoard.placeShip(4, 2, newShip2, true);
+  expect(gameBoard.isAllShipsSunk()).toBe(false);
+  gameBoard.recieveAttack(2, 2);
+  gameBoard.recieveAttack(2, 3);
+  gameBoard.recieveAttack(2, 4);
+  expect(gameBoard.isAllShipsSunk()).toBe(false);
+  gameBoard.recieveAttack(4, 2);
+  gameBoard.recieveAttack(5, 2);
+  gameBoard.recieveAttack(6, 2);
+  expect(gameBoard.isAllShipsSunk()).toBe(true);
+});
