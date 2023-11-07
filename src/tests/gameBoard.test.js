@@ -71,8 +71,16 @@ test("GameBoard places a vertical ship properly", () => {
   const gameBoard = GameBoard();
   const board = gameBoard.fetchBoard();
   const newShip = Ship(3);
-  expect(gameBoard.placeShip(0, 0, newShip,true)).toBe(true);
+  expect(gameBoard.placeShip(0, 0, newShip, true)).toBe(true);
   expect(board[0][0]).toEqual(newShip);
   expect(board[1][0]).toEqual(newShip);
   expect(board[2][0]).toEqual(newShip);
+});
+
+test("Ending position validity of vertical ship", () => {
+  const gameBoard = GameBoard(10);
+  const newShip = Ship(3);
+  expect(gameBoard.placeShip(7, 1, newShip, true)).toBe(false);
+  expect(gameBoard.placeShip(15, 7, newShip, true)).toBe(false);
+  expect(gameBoard.placeShip(10, -1, newShip, true)).toBe(false);
 });
