@@ -1,13 +1,17 @@
 const GameBoard = (size = 10) => {
   const board = [];
+  const missedShots = [];
   for (let i = 0; i < size; i += 1) {
     board.push([]);
+    missedShots.push([]);
     for (let j = 0; j < size; j += 1) {
       board[i].push(null);
+      missedShots[i].push(false);
     }
   }
 
   const fetchBoard = () => board;
+  const fetchMissedShots = () => missedShots;
 
   const isPositionOutOfBounds = (row, column) =>
     row < 0 || column < 0 || row >= size || column >= size;
@@ -51,7 +55,7 @@ const GameBoard = (size = 10) => {
     if (isPositionOutOfBounds(row, column)) return false;
     if (isShipEndOutOfBounds(row, column, ship, isVertical)) return false;
     if (isPositionTaken(row, column, ship, isVertical)) return false;
-    if (isNeighborTaken(row, column, ship,isVertical)) return false;
+    if (isNeighborTaken(row, column, ship, isVertical)) return false;
     return true;
   };
 
@@ -69,9 +73,21 @@ const GameBoard = (size = 10) => {
     return true;
   };
 
+  const recieveAttack = (row, column) => {
+    if (isPositionOutOfBounds(row, column)) return false;
+    if (board[row][column]) {
+      board[row][column].hit();
+      return true;
+    }
+    missedShots[row][column] = true;
+    return false;
+  };
+
   return {
     fetchBoard,
     placeShip,
+    recieveAttack,
+    fetchMissedShots,
   };
 };
 
