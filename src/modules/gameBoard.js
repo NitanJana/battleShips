@@ -30,10 +30,18 @@ const GameBoard = (size = 10) => {
     return false;
   };
 
-  const isNeighborTaken = (row, column, ship) => {
-    for (let i = row - 1; i <= row + 1; i += 1) {
-      for (let j = column - 1; j <= column + ship.getLength(); j += 1) {
-        if (!isPositionOutOfBounds(i, j) && board[i][j]) return true;
+  const isNeighborTaken = (row, column, ship, isVertical) => {
+    if (isVertical) {
+      for (let i = row - 1; i <= row + ship.getLength(); i += 1) {
+        for (let j = column - 1; j <= column + 1; j += 1) {
+          if (!isPositionOutOfBounds(i, j) && board[i][j]) return true;
+        }
+      }
+    } else {
+      for (let i = row - 1; i <= row + 1; i += 1) {
+        for (let j = column - 1; j <= column + ship.getLength(); j += 1) {
+          if (!isPositionOutOfBounds(i, j) && board[i][j]) return true;
+        }
       }
     }
     return false;
@@ -43,7 +51,7 @@ const GameBoard = (size = 10) => {
     if (isPositionOutOfBounds(row, column)) return false;
     if (isShipEndOutOfBounds(row, column, ship, isVertical)) return false;
     if (isPositionTaken(row, column, ship, isVertical)) return false;
-    if (isNeighborTaken(row, column, ship)) return false;
+    if (isNeighborTaken(row, column, ship,isVertical)) return false;
     return true;
   };
 
