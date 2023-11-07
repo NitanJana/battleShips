@@ -12,8 +12,10 @@ const GameBoard = (size = 10) => {
   const isPositionOutOfBounds = (row, column) =>
     row < 0 || column < 0 || row >= size || column >= size;
 
-  const isShipEndOutOfBounds = (column, ship) =>
-    column + ship.getLength() >= size;
+  const isShipEndOutOfBounds = (row, column, ship, isVertical) => {
+    if (isVertical) return row + ship.getLength() >= size;
+    return column + ship.getLength() >= size;
+  };
 
   const isPositionTaken = (row, column, ship) => {
     for (let i = 0; i < ship.getLength(); i += 1) {
@@ -31,16 +33,16 @@ const GameBoard = (size = 10) => {
     return false;
   };
 
-  const isValidPosition = (row, column, ship) => {
+  const isValidPosition = (row, column, ship, isVertical) => {
     if (isPositionOutOfBounds(row, column)) return false;
-    if (isShipEndOutOfBounds(column, ship)) return false;
+    if (isShipEndOutOfBounds(row, column, ship, isVertical)) return false;
     if (isPositionTaken(row, column, ship)) return false;
     if (isNeighborTaken(row, column, ship)) return false;
     return true;
   };
 
   const placeShip = (row, column, ship, isVertical = false) => {
-    if (!isValidPosition(row, column, ship)) return false;
+    if (!isValidPosition(row, column, ship, isVertical)) return false;
     if (isVertical) {
       for (let i = 0; i < ship.getLength(); i += 1) {
         board[row + i][column] = ship;
