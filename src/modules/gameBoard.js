@@ -17,9 +17,15 @@ const GameBoard = (size = 10) => {
     return column + ship.getLength() >= size;
   };
 
-  const isPositionTaken = (row, column, ship) => {
-    for (let i = 0; i < ship.getLength(); i += 1) {
-      if (board[row][column + i] !== null) return true;
+  const isPositionTaken = (row, column, ship, isVertical) => {
+    if (isVertical) {
+      for (let i = 0; i < ship.getLength(); i += 1) {
+        if (board[row + i][column] !== null) return true;
+      }
+    } else {
+      for (let i = 0; i < ship.getLength(); i += 1) {
+        if (board[row][column + i] !== null) return true;
+      }
     }
     return false;
   };
@@ -36,7 +42,7 @@ const GameBoard = (size = 10) => {
   const isValidPosition = (row, column, ship, isVertical) => {
     if (isPositionOutOfBounds(row, column)) return false;
     if (isShipEndOutOfBounds(row, column, ship, isVertical)) return false;
-    if (isPositionTaken(row, column, ship)) return false;
+    if (isPositionTaken(row, column, ship, isVertical)) return false;
     if (isNeighborTaken(row, column, ship)) return false;
     return true;
   };
