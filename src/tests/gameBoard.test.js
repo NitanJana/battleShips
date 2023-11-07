@@ -66,3 +66,13 @@ test("Cannot place ship if neighbouring positions are already taken", () => {
   expect(gameBoard.placeShip(2, 0, newShip2)).toBe(false);
   expect(gameBoard.placeShip(3, 1, newShip2)).toBe(false);
 });
+
+test("GameBoard places a vertical ship properly", () => {
+  const gameBoard = GameBoard();
+  const board = gameBoard.fetchBoard();
+  const newShip = Ship(3);
+  expect(gameBoard.placeShip(0, 0, newShip,true)).toBe(true);
+  expect(board[0][0]).toEqual(newShip);
+  expect(board[1][0]).toEqual(newShip);
+  expect(board[2][0]).toEqual(newShip);
+});
