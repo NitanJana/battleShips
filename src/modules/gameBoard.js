@@ -11,8 +11,8 @@ const GameBoard = (size = 10) => {
     }
   }
 
-  const fetchBoard = () => board;
-  const fetchMissedShots = () => missedShots;
+  const getBoard = () => board;
+  const getMissedShots = () => missedShots;
 
   const isPositionOutOfBounds = (row, column) =>
     row < 0 || column < 0 || row >= size || column >= size;
@@ -88,10 +88,10 @@ const GameBoard = (size = 10) => {
   const isAllShipsSunk = () => ships.every((ship) => ship.isSunk() === true);
 
   return {
-    fetchBoard,
+    getBoard,
     placeShip,
     recieveAttack,
-    fetchMissedShots,
+    getMissedShots,
     isAllShipsSunk,
   };
 };

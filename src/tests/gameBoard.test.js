@@ -3,21 +3,21 @@ import Ship from "../modules/ship";
 
 test("Returns a board with default size", () => {
   const gameBoard = GameBoard();
-  const board = gameBoard.fetchBoard();
+  const board = gameBoard.getBoard();
   expect(board.length).toBe(10);
   expect(board.every((row) => row.length === 10)).toBe(true);
 });
 
 test("Returns a board with custom size", () => {
   const gameBoard = GameBoard(15);
-  const board = gameBoard.fetchBoard();
+  const board = gameBoard.getBoard();
   expect(board.length).toBe(15);
   expect(board.every((row) => row.length === 15)).toBe(true);
 });
 
 test("Board cells are null initially ", () => {
   const gameBoard = GameBoard();
-  const board = gameBoard.fetchBoard();
+  const board = gameBoard.getBoard();
   expect(board.length).toBe(10);
   expect(board.every((row) => row.length === 10)).toBe(true);
   expect(board.every((row) => row.every((cell) => cell === null))).toBe(true);
@@ -25,7 +25,7 @@ test("Board cells are null initially ", () => {
 
 test("(horizontal) GameBoard places a ship properly", () => {
   const gameBoard = GameBoard();
-  const board = gameBoard.fetchBoard();
+  const board = gameBoard.getBoard();
   const newShip = Ship(3);
   expect(gameBoard.placeShip(0, 0, newShip)).toBe(true);
   expect(board[0][0]).toEqual(newShip);
@@ -69,7 +69,7 @@ test("(horizontal) Cannot place ship if neighbouring positions are already taken
 
 test("(vertical) GameBoard places a ship properly", () => {
   const gameBoard = GameBoard();
-  const board = gameBoard.fetchBoard();
+  const board = gameBoard.getBoard();
   const newShip = Ship(3);
   expect(gameBoard.placeShip(0, 0, newShip, true)).toBe(true);
   expect(board[0][0]).toEqual(newShip);
@@ -125,7 +125,7 @@ test("recieveAttack returns missed if attack misses a shot", () => {
   const newShip = Ship(3);
   gameBoard.placeShip(4, 2, newShip, true);
   expect(gameBoard.recieveAttack(3, 2)).toBe(false);
-  expect(gameBoard.fetchMissedShots()[3][2]).toBe(true);
+  expect(gameBoard.getMissedShots()[3][2]).toBe(true);
 });
 
 test("Check if all ships are sunk", () => {
