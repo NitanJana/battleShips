@@ -22,3 +22,11 @@ test("isSunk should return true when all ship segments are hit", () => {
   newShip.hit();
   expect(newShip.isSunk()).toBe(true);
 });
+
+test("sunk ship cannot be hit", () => {
+  newShip.hit();
+  newShip.hit();
+  newShip.hit();
+  newShip.hit();
+  expect(newShip.isSunk()).toBe(true);
+});
