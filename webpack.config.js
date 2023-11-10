@@ -1,6 +1,6 @@
 const path = require("path");
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+// const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: "development",
@@ -13,15 +13,15 @@ module.exports = {
     hot: true, // Enable hot module replacement
   },
   plugins: [
-    // new HtmlWebpackPlugin({
-    //   template: './src/index.html',
-    //   filename: 'index.html',
-    //   chunks: ['main'],
-    // }),
+    new HtmlWebpackPlugin({
+      template: "./src/template/index.html",
+      filename: "index.html",
+      chunks: ["main"],
+    }),
     // new CopyWebpackPlugin({
     //   patterns: [
-    //     { from: './src/img', to: 'img' } // Copies files from src/img to dist/img
-    //   ]
+    //     { from: "./src/img", to: "img" }, // Copies files from src/img to dist/img
+    //   ],
     // }),
   ],
   output: {
@@ -33,9 +33,14 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
-        exclude: ["node_modules"],
-        use: ["babel-loader"],
+        test: /\.(?:js|mjs|cjs)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: [["@babel/preset-env", { targets: "defaults" }]],
+          },
+        },
       },
       {
         test: /\.css$/i,
