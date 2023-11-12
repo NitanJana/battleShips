@@ -1,22 +1,37 @@
 const DOMcontroller = () => {
+  // Function to create a single cell
+  const createCell = (rowIndex, columnIndex) => {
+    const cell = document.createElement("div");
+    cell.classList.add("cell");
+    cell.setAttribute("row", rowIndex);
+    cell.setAttribute("column", columnIndex);
+    return cell;
+  };
+
+  // Function to create a single row
+  const createRow = (rowIndex, rowArray) => {
+    const row = document.createElement("div");
+    row.classList.add("row");
+
+    for (let j = 0; j < rowArray.length; j += 1) {
+      const cell = createCell(rowIndex, j);
+      row.appendChild(cell);
+    }
+
+    return row;
+  };
+
+  // Function to render the game board
   const renderGameBoard = (gameBoard) => {
     const boardArray = gameBoard.getBoard();
     const board = document.createElement("div");
     board.classList.add("board");
 
     for (let i = 0; i < boardArray.length; i += 1) {
-      const row = document.createElement("div");
-      row.classList.add("row");
-
-      for (let j = 0; j < boardArray[i].length; j += 1) {
-        const cell = document.createElement("div");
-        cell.classList.add("cell");
-        cell.setAttribute("row", i);
-        cell.setAttribute("column", j);
-        row.appendChild(cell);
-      }
+      const row = createRow(i, boardArray[i]);
       board.appendChild(row);
     }
+
     return board;
   };
 
@@ -43,6 +58,7 @@ const DOMcontroller = () => {
       });
     });
   };
+
   return {
     renderGameBoard,
     addCellEvents,
