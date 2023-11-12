@@ -32,7 +32,7 @@ const Player = (name) => {
     }
     gameBoard.recieveAttack(randomRow, randomCol);
     hitRecord.add(`${randomRow}-${randomCol}`);
-    return true;
+    return [randomRow, randomCol];
   };
 
   return {
