@@ -1,0 +1,38 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+.boards {
+  display: flex;
+  justify-content: space-around;
+}
+
+.board {
+  width: max-content;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.cell {
+  width: 2rem;
+  aspect-ratio: 1;
+  border: 1px solid blue;
+  text-align: center;
+}
+
+.missed{
+  background-color: red;
+}
