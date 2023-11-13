@@ -9,15 +9,13 @@ const DOMcontroller = () => {
   };
 
   // Function to create a single row
-  const createRow = (rowIndex, rowArray) => {
+  const createRow = (rowArray, rowIndex) => {
     const row = document.createElement("div");
     row.classList.add("row");
-
-    for (let j = 0; j < rowArray.length; j += 1) {
-      const cell = createCell(rowIndex, j);
+    rowArray.forEach((_, column) => {
+      const cell = createCell(rowIndex, column);
       row.appendChild(cell);
-    }
-
+    });
     return row;
   };
 
@@ -27,11 +25,10 @@ const DOMcontroller = () => {
     const board = document.createElement("div");
     board.classList.add("board");
 
-    for (let i = 0; i < boardArray.length; i += 1) {
-      const row = createRow(i, boardArray[i]);
+    boardArray.forEach((rowArray, rowIndex) => {
+      const row = createRow(rowArray, rowIndex);
       board.appendChild(row);
-    }
-
+    });
     return board;
   };
 
