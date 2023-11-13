@@ -1,6 +1,7 @@
 import DOMcontroller from "./DOMcontroller";
 import GameBoard from "./gameBoard";
 import Player from "./player";
+import Ship from "./ship";
 
 const game = () => {
   const user = Player("user");
@@ -8,6 +9,10 @@ const game = () => {
   const userBoard = GameBoard();
   const computerBoard = GameBoard();
   const domController = DOMcontroller();
+  const newShip = Ship(3);
+  userBoard.placeShip(2, 2, newShip);
+  const newShip2 = Ship(3);
+  computerBoard.placeShip(4, 2, newShip2);
 
   const computerBoardContainer = document.querySelector(
     ".computerBoardContainer",
