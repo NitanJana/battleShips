@@ -9,7 +9,7 @@ const game = () => {
   const userBoard = GameBoard();
   const computerBoard = GameBoard();
   const domController = DOMcontroller();
-  const newShip = Ship(3);
+  const newShip = Ship(1);
   userBoard.placeShip(2, 2, newShip);
   const newShip2 = Ship(3);
   computerBoard.placeShip(4, 2, newShip2);
@@ -46,10 +46,15 @@ const game = () => {
       computerBoard.getMissedShots(),
       computer,
     );
-
-    domController.checkForWinner(userBoard, computerBoard);
   };
-
+  // Function to check for winner
+  const checkForWinner = () => {
+    if (userBoard.isAllShipsSunk()) {
+      domController.showWinner(user.getName());
+    } else if (computerBoard.isAllShipsSunk()) {
+      domController.showWinner(computer.getName());
+    }
+  };
   // Game loop
   const gameLoop = async () => {
     // Exit condition
@@ -57,6 +62,7 @@ const game = () => {
       // eslint-disable-next-line no-await-in-loop
       await playTurn();
     }
+    checkForWinner();
   };
 
   // Start the game loop

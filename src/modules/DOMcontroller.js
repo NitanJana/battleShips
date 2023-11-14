@@ -32,6 +32,8 @@ const DOMcontroller = () => {
     return board;
   };
 
+  
+
   // Function to get user move
   const getUserMove = () =>
     new Promise((resolve) => {
@@ -72,20 +74,18 @@ const DOMcontroller = () => {
     cell.classList.add(isHit ? "hit" : "missed");
   };
 
-  // Function to check for winner
-  const checkForWinner = (userBoard, computerBoard) => {
-    if (userBoard.isAllShipsSunk()) {
-      console.log("User wins! All computer ships are sunk.");
-    } else if (computerBoard.isAllShipsSunk()) {
-      console.log("Computer wins! All user ships are sunk.");
-    }
+  const showWinner = (winner) => {
+    const winnerModal = document.querySelector(".winnerModal");
+    const winnerMessage = winnerModal.querySelector(".winnerMessage");
+    winnerMessage.textContent = `${winner} won`;
+    winnerModal.showModal();
   };
 
   return {
     renderGameBoard,
     getUserMove,
     handleCellUpdate,
-    checkForWinner,
+    showWinner,
   };
 };
 
