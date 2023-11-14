@@ -31,6 +31,47 @@ const DOMcontroller = () => {
     });
     return board;
   };
+
+  // Function to get user move
+  const getUserMove = () =>
+    new Promise((resolve) => {
+      const userBoardContainer = document.querySelector(".userBoardContainer");
+
+      const handleClick = (event) => {
+        const cell = event.target.closest(".cell");
+        if (cell) {
+          const row = parseInt(cell.getAttribute("row"), 10);
+          const column = parseInt(cell.getAttribute("column"), 10);
+          userBoardContainer.removeEventListener("click", handleClick);
+          resolve([row, column]);
+        }
+      };
+
+      userBoardContainer.addEventListener("click", handleClick);
+    });
+
+  // Function to handle cell state change
+  const handleCellUpdate = (coords, missedShots, player) => {
+    const [row, column] = coords;
+    let cell;
+    if (player.getName() === "user") {
+      cell = document.querySelector(
+        `.userBoardContainer .row:nth-child(${row + 1}) .cell:nth-child(${
+          column + 1
+        })`,
+      );
+    } else {
+      cell = document.querySelector(
+        `.computerBoardContainer .row:nth-child(${row + 1}) .cell:nth-child(${
+          column + 1
+        })`,
+      );
+    }
+    const isHit = !missedShots[row][column];
+
+    cell.classList.add(isHit ? "hit" : "missed");
+  };
+
   // Function to check for winner
   const checkForWinner = (userBoard, computerBoard) => {
     if (userBoard.isAllShipsSunk()) {
@@ -39,54 +80,12 @@ const DOMcontroller = () => {
       console.log("Computer wins! All user ships are sunk.");
     }
   };
-  // Function to handle cell color change
-  const handleCellUpdate = (cell, missedShots, coords) => {
-    const isHit = !missedShots[coords[0]][coords[1]];
-
-    cell.classList.add(isHit ? "hit" : "missed");
-  };
-
-  const addCellEvents = (user, computer, userBoard, computerBoard) => {
-    const userBoardContainer = document.querySelector(".userBoardContainer");
-
-    userBoardContainer.addEventListener("click", (event) => {
-      const cell = event.target.closest(".cell");
-      if (cell) {
-        const userAttackSuccess = user.attack(
-          cell.getAttribute("row"),
-          cell.getAttribute("column"),
-          userBoard,
-        );
-
-        if (userAttackSuccess) {
-          const userCellCoords = [
-            parseInt(cell.getAttribute("row"), 10),
-            parseInt(cell.getAttribute("column"), 10),
-          ];
-
-          handleCellUpdate(cell, userBoard.getMissedShots(), userCellCoords);
-
-          const computerCellCoords = computer.randomAttack(computerBoard);
-          const computerCell = document.querySelector(
-            `.board .row:nth-child(${
-              computerCellCoords[0] + 1
-            }) .cell:nth-child(${computerCellCoords[1] + 1})`,
-          );
-
-          handleCellUpdate(
-            computerCell,
-            computerBoard.getMissedShots(),
-            computerCellCoords,
-          );
-          checkForWinner(userBoard, computerBoard);
-        }
-      }
-    });
-  };
 
   return {
     renderGameBoard,
-    addCellEvents,
+    getUserMove,
+    handleCellUpdate,
+    checkForWinner,
   };
 };
 
