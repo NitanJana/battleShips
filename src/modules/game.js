@@ -22,7 +22,45 @@ const game = () => {
     domController.renderGameBoard(computerBoard),
   );
   userBoardContainer.appendChild(domController.renderGameBoard(userBoard));
-  domController.addCellEvents(user, computer, userBoard, computerBoard);
+
+  const playTurn = async () => {
+    const userCellCoords = await domController.getUserMove();
+    const userAttackSuccess = user.attack(
+      userCellCoords[0],
+      userCellCoords[1],
+      userBoard,
+    );
+
+    if (userAttackSuccess) {
+      domController.handleCellUpdate(
+        userCellCoords,
+        userBoard.getMissedShots(),
+        user,
+      );
+    }
+
+    const computerCellCoords = computer.randomAttack(computerBoard);
+
+    domController.handleCellUpdate(
+      computerCellCoords,
+      computerBoard.getMissedShots(),
+      computer,
+    );
+
+    domController.checkForWinner(userBoard, computerBoard);
+  };
+
+  // Game loop
+  const gameLoop = async () => {
+    // Exit condition
+    while (!userBoard.isAllShipsSunk() && !computerBoard.isAllShipsSunk()) {
+      // eslint-disable-next-line no-await-in-loop
+      await playTurn();
+    }
+  };
+
+  // Start the game loop
+  gameLoop();
 };
 
 export default game;
