@@ -57,6 +57,7 @@ const game = () => {
   };
   // Game loop
   const gameLoop = async () => {
+    domController.initializeRestartBtn()
     // Exit condition
     while (!userBoard.isAllShipsSunk() && !computerBoard.isAllShipsSunk()) {
       // eslint-disable-next-line no-await-in-loop

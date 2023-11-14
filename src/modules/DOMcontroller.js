@@ -32,7 +32,12 @@ const DOMcontroller = () => {
     return board;
   };
 
-  
+  const initializeRestartBtn = () => {
+    const restartBtn = document.querySelector(".restartBtn");
+    restartBtn.addEventListener("click", () => {
+      window.location.reload();
+    });
+  }
 
   // Function to get user move
   const getUserMove = () =>
@@ -83,6 +88,7 @@ const DOMcontroller = () => {
 
   return {
     renderGameBoard,
+    initializeRestartBtn,
     getUserMove,
     handleCellUpdate,
     showWinner,
