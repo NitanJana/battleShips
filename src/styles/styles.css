@@ -40,3 +40,19 @@ body {
 .hit {
   background-color: red;
 }
+
+.winnerModal {
+  padding: 2rem 5rem;
+  outline: none;
+  border: none;
+  margin: auto;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 1rem;
+}
+
+.winnerModal .restartBtn {
+  padding: 0.3rem 1rem;
+}
