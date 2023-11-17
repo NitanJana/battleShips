@@ -32,12 +32,33 @@ const DOMcontroller = () => {
     return board;
   };
 
+  const renderShips = (gameBoard) => {
+    const boardArray = gameBoard.getBoard();
+    // const boardContainer =
+    //   player.getName() === "user"
+    //     ? document.querySelector(".userBoardContainer")
+    //     : document.querySelector(".computerBoardContainer");
+    const boardContainer = document.querySelector(".computerBoardContainer");
+    boardArray.forEach((rowArray, rowIndex) => {
+      rowArray.forEach((cellValue, columnIndex) => {
+        const cell = boardContainer.querySelector(
+          `.row:nth-child(${rowIndex + 1}) .cell:nth-child(${columnIndex + 1})`,
+        );
+
+        // Check if there is a ship at this cell
+        if (cellValue) {
+          cell.classList.add("ship"); // Add a class to indicate a ship at this cell
+        }
+      });
+    });
+  };
+
   const initializeRestartBtn = () => {
     const restartBtn = document.querySelector(".restartBtn");
     restartBtn.addEventListener("click", () => {
       window.location.reload();
     });
-  }
+  };
 
   // Function to get user move
   const getUserMove = () =>
@@ -88,6 +109,7 @@ const DOMcontroller = () => {
 
   return {
     renderGameBoard,
+    renderShips,
     initializeRestartBtn,
     getUserMove,
     handleCellUpdate,

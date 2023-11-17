@@ -33,6 +33,10 @@ body {
   text-align: center;
 }
 
+.ship {
+  background-color: green;
+}
+
 .missed {
   background-color: aqua;
 }
@@ -53,7 +57,7 @@ body {
   gap: 1rem;
 }
 
-.winnerMessage{
+.winnerMessage {
   font-size: 1.5rem;
   font-weight: bold;
 }

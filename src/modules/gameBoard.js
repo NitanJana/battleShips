@@ -1,3 +1,5 @@
+import Ship from "./ship";
+
 const GameBoard = (size = 10) => {
   const board = [];
   const missedShots = [];
@@ -23,7 +25,7 @@ const GameBoard = (size = 10) => {
   };
 
   const isPositionTaken = (row, column, ship) => {
-    if (ship.getIsVertical()){
+    if (ship.getIsVertical()) {
       for (let i = 0; i < ship.getLength(); i += 1) {
         if (board[row + i][column] !== null) return true;
       }
@@ -75,6 +77,26 @@ const GameBoard = (size = 10) => {
     return true;
   };
 
+  const placeRandomShips = () => {
+    const shipLengths = [5, 4, 3, 3, 2];
+
+    shipLengths.forEach((length) => {
+      let isShipPlaced = false;
+
+      while (!isShipPlaced) {
+        const isVertical = Math.random() < 0.5;
+        const row = Math.floor(Math.random() * size);
+        const column = Math.floor(Math.random() * size);
+        const newShip = Ship(length, isVertical);
+
+        if (isValidPosition(row, column, newShip)) {
+          placeShip(row, column, newShip);
+          isShipPlaced = true;
+        }
+      }
+    });
+  };
+
   const recieveAttack = (row, column) => {
     if (isPositionOutOfBounds(row, column)) return false;
     if (board[row][column]) {
@@ -90,6 +112,7 @@ const GameBoard = (size = 10) => {
   return {
     getBoard,
     placeShip,
+    placeRandomShips,
     recieveAttack,
     getMissedShots,
     isAllShipsSunk,
