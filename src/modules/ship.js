@@ -1,7 +1,8 @@
-const Ship = (length) => {
+const Ship = (length, isVertical = false) => {
   let hits = 0;
 
   const getLength = () => length;
+  const getIsVertical = () => isVertical;
   const getHits = () => hits;
   const isSunk = () => hits === length;
   const hit = () => {
@@ -9,6 +10,7 @@ const Ship = (length) => {
   };
   return {
     getLength,
+    getIsVertical,
     getHits,
     isSunk,
     hit,

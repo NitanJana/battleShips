@@ -9,7 +9,7 @@ const game = () => {
   const userBoard = GameBoard();
   const computerBoard = GameBoard();
   const domController = DOMcontroller();
-  const newShip = Ship(1);
+  const newShip = Ship(3);
   userBoard.placeShip(2, 2, newShip);
   const newShip2 = Ship(3);
   computerBoard.placeShip(4, 2, newShip2);
@@ -57,7 +57,6 @@ const game = () => {
   };
   // Game loop
   const gameLoop = async () => {
-    domController.initializeRestartBtn()
     // Exit condition
     while (!userBoard.isAllShipsSunk() && !computerBoard.isAllShipsSunk()) {
       // eslint-disable-next-line no-await-in-loop
@@ -65,7 +64,8 @@ const game = () => {
     }
     checkForWinner();
   };
-
+  
+  domController.initializeRestartBtn()
   // Start the game loop
   gameLoop();
 };

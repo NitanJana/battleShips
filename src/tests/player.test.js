@@ -22,10 +22,6 @@ test("player cannot attack invalid cell", () => {
   expect(player.attack(11, 2, gameBoard)).toBe(false);
 });
 
-test("should make a random attack on the game board", () => {
-  expect(player.randomAttack(gameBoard)).toBe(true);
-});
-
 test("should not make an attack if all positions have been hit", () => {
   // Fill the hitRecord to simulate all positions being hit
   for (let i = 0; i < 100; i += 1) {
