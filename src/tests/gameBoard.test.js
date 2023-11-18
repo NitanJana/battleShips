@@ -70,7 +70,7 @@ test("(horizontal) Cannot place ship if neighbouring positions are already taken
 test("(vertical) GameBoard places a ship properly", () => {
   const gameBoard = GameBoard();
   const board = gameBoard.getBoard();
-  const newShip = Ship(3,true);
+  const newShip = Ship(3, true);
   expect(gameBoard.placeShip(0, 0, newShip)).toBe(true);
   expect(board[0][0]).toEqual(newShip);
   expect(board[1][0]).toEqual(newShip);
@@ -79,7 +79,7 @@ test("(vertical) GameBoard places a ship properly", () => {
 
 test("(vertical) Ending position validity of ship", () => {
   const gameBoard = GameBoard(10);
-  const newShip = Ship(3,true);
+  const newShip = Ship(3, true);
   expect(gameBoard.placeShip(7, 1, newShip)).toBe(false);
   expect(gameBoard.placeShip(15, 7, newShip)).toBe(false);
   expect(gameBoard.placeShip(10, -1, newShip)).toBe(false);
@@ -87,17 +87,17 @@ test("(vertical) Ending position validity of ship", () => {
 
 test("(vertical) Cannot place ship if position is already taken", () => {
   const gameBoard = GameBoard(10);
-  const newShip = Ship(3,true);
+  const newShip = Ship(3, true);
   expect(gameBoard.placeShip(1, 1, newShip)).toBe(true);
-  const newShip2 = Ship(4,true);
+  const newShip2 = Ship(4, true);
   expect(gameBoard.placeShip(3, 1, newShip2)).toBe(false);
 });
 
 test("(vertical) Cannot place ship if neighbouring positions are already taken", () => {
   const gameBoard = GameBoard(10);
-  const newShip = Ship(3,true);
+  const newShip = Ship(3, true);
   expect(gameBoard.placeShip(4, 2, newShip)).toBe(true);
-  const newShip2 = Ship(4,true);
+  const newShip2 = Ship(4, true);
   expect(gameBoard.placeShip(0, 2, newShip2)).toBe(false);
   expect(gameBoard.placeShip(1, 3, newShip2)).toBe(false);
   expect(gameBoard.placeShip(1, 1, newShip2)).toBe(false);
@@ -112,7 +112,7 @@ test("recieveAttack returns false for out of bound coordinates", () => {
 
 test("recieveAttack increases hits of the ship at coordinates", () => {
   const gameBoard = GameBoard(10);
-  const newShip = Ship(3,true);
+  const newShip = Ship(3, true);
   gameBoard.placeShip(4, 2, newShip);
   expect(gameBoard.recieveAttack(4, 2)).toBe(true);
   expect(newShip.getHits()).toBe(1);
@@ -143,4 +143,26 @@ test("Check if all ships are sunk", () => {
   gameBoard.recieveAttack(5, 2);
   gameBoard.recieveAttack(6, 2);
   expect(gameBoard.isAllShipsSunk()).toBe(true);
+});
+
+test("(horizontal) GameBoard removes a ship properly", () => {
+  const gameBoard = GameBoard();
+  const board = gameBoard.getBoard();
+  const newShip = Ship(3);
+  gameBoard.placeShip(0, 0, newShip);
+  expect(gameBoard.removeShip(0, 1)).toBe(true);
+  expect(board[0][0]).toEqual(null);
+  expect(board[0][1]).toEqual(null);
+  expect(board[0][2]).toEqual(null);
+});
+
+test("(vertical) GameBoard removes a ship properly", () => {
+  const gameBoard = GameBoard();
+  const board = gameBoard.getBoard();
+  const newShip = Ship(3, true);
+  gameBoard.placeShip(0, 0, newShip);
+  expect(gameBoard.removeShip(1, 0)).toBe(true);
+  expect(board[0][0]).toEqual(null);
+  expect(board[1][0]).toEqual(null);
+  expect(board[2][0]).toEqual(null);
 });
