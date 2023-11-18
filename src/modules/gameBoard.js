@@ -20,8 +20,8 @@ const GameBoard = (size = 10) => {
     row < 0 || column < 0 || row >= size || column >= size;
 
   const isShipEndOutOfBounds = (row, column, ship) => {
-    if (ship.getIsVertical()) return row + ship.getLength() >= size;
-    return column + ship.getLength() >= size;
+    if (ship.getIsVertical()) return row + ship.getLength() > size;
+    return column + ship.getLength() > size;
   };
 
   const isPositionTaken = (row, column, ship) => {

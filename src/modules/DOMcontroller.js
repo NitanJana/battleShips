@@ -58,7 +58,6 @@ const DOMcontroller = () => {
 
           // Add dragstart event listener for dragging ship cells
           cell.addEventListener("dragstart", (event) => {
-            console.log("Setting drag data:", rowIndex, columnIndex, cellValue);
             event.dataTransfer.setData(
               "text/plain",
               JSON.stringify({
@@ -91,12 +90,7 @@ const DOMcontroller = () => {
 
         // Remove ship from old coordinates
         gameBoard.removeShip(oldRowIndex, oldColumnIndex);
-        const oldCell = boardContainer.querySelector(
-          `.row:nth-child(${oldRowIndex + 1}) .cell:nth-child(${
-            oldColumnIndex + 1
-          })`,
-        );
-        oldCell.classList.remove("ship");
+        
 
         // Place ship in new coordinates
         gameBoard.placeShip(newRowIndex, newColumnIndex, ship);
