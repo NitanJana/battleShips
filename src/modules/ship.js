@@ -15,6 +15,12 @@ const Ship = (length, isVertical = false) => {
     startRow = row;
     startColumn = column;
   };
+  const toJSON = () => ({
+    length: getLength(),
+    isVertical: getIsVertical(),
+    hits: getHits(),
+    startCell: getStartCell(),
+  });
 
   return {
     getLength,
@@ -24,6 +30,7 @@ const Ship = (length, isVertical = false) => {
     hit,
     getStartCell,
     setStartCell,
+    toJSON,
   };
 };
 

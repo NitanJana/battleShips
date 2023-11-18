@@ -1,3 +1,5 @@
+import Ship from "./ship";
+
 const DOMcontroller = () => {
   // Function to create a single cell
   const createCell = (rowIndex, columnIndex) => {
@@ -39,6 +41,9 @@ const DOMcontroller = () => {
     //     ? document.querySelector(".userBoardContainer")
     //     : document.querySelector(".computerBoardContainer");
     const boardContainer = document.querySelector(".computerBoardContainer");
+    boardContainer.querySelectorAll(".ship").forEach((ship) => {
+      ship.classList.remove("ship");
+    });
     boardArray.forEach((rowArray, rowIndex) => {
       rowArray.forEach((cellValue, columnIndex) => {
         const cell = boardContainer.querySelector(
@@ -48,8 +53,57 @@ const DOMcontroller = () => {
         // Check if there is a ship at this cell
         if (cellValue) {
           cell.classList.add("ship"); // Add a class to indicate a ship at this cell
+          cell.setAttribute("draggable", true);
+          cell.addEventListener("dragstart", (event) => {
+            console.log("Setting drag data:", rowIndex, columnIndex, cellValue);
+            event.dataTransfer.setData(
+              "text/plain",
+              JSON.stringify({
+                rowIndex,
+                columnIndex,
+                cellValue,
+              }),
+            );
+          });
         }
       });
+    });
+    boardContainer.addEventListener("drop", (event) => {
+      event.preventDefault();
+
+      const data = JSON.parse(event.dataTransfer.getData("text/plain"));
+      console.log("Parsed drag data:", data);
+
+      const oldRowIndex = data.rowIndex;
+      const oldColumnIndex = data.columnIndex;
+      const ship = Ship(data.cellValue.length, data.cellValue.isVertical);
+      const newCell = event.target.closest(".cell");
+
+      // Check if the drop target is a valid cell
+      if (newCell && !newCell.classList.contains("ship")) {
+        const newRowIndex = parseInt(newCell.getAttribute("row"), 10);
+        const newColumnIndex = parseInt(newCell.getAttribute("column"), 10);
+
+        // Remove ship from old coordinates
+        gameBoard.removeShip(oldRowIndex, oldColumnIndex);
+        const oldCell = boardContainer.querySelector(
+          `.row:nth-child(${oldRowIndex + 1}) .cell:nth-child(${
+            oldColumnIndex + 1
+          })`,
+        );
+        oldCell.classList.remove("ship");
+
+        // Place ship in new coordinates
+        gameBoard.placeShip(newRowIndex, newColumnIndex, ship);
+
+        // Update the visual representation of the ship
+        renderShips(gameBoard);
+      }
+    });
+
+    // Add dragover event listener to allow dropping
+    boardContainer.addEventListener("dragover", (event) => {
+      event.preventDefault();
     });
   };
 
@@ -69,6 +123,8 @@ const DOMcontroller = () => {
     startBtn.addEventListener("click", () => {
       window.location.reload();
     });
+    const shipcells = document.querySelectorAll(".ship");
+    shipcells.forEach((shipcell) => shipcell.setAttribute("draggable", false));
   };
 
   const handleCellClick = (event, resolve) => {
