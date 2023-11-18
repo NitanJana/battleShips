@@ -37,15 +37,15 @@ const game = () => {
         userBoard.getMissedShots(),
         user,
       );
+
+      const computerCellCoords = computer.randomAttack(computerBoard);
+
+      domController.handleCellUpdate(
+        computerCellCoords,
+        computerBoard.getMissedShots(),
+        computer,
+      );
     }
-
-    const computerCellCoords = computer.randomAttack(computerBoard);
-
-    domController.handleCellUpdate(
-      computerCellCoords,
-      computerBoard.getMissedShots(),
-      computer,
-    );
   };
   // Function to check for winner
   const checkForWinner = () => {
@@ -65,11 +65,12 @@ const game = () => {
     checkForWinner();
   };
 
-  domController.initializeRestartBtn();
-
+  domController.initializeStartBtn();
+  
   userBoard.placeRandomShips();
   computerBoard.placeRandomShips();
   domController.renderShips(computerBoard);
+  
   // domController.renderShips(userBoard, user);
   // Start the game loop
   gameLoop();

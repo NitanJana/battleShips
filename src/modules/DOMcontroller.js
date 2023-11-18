@@ -60,23 +60,45 @@ const DOMcontroller = () => {
     });
   };
 
-  // Function to get user move
+  let gameStarted = false;
+
+  const startGame = () => {
+    gameStarted = true;
+    const startBtn = document.querySelector(".startBtn");
+    startBtn.textContent = "Restart";
+    startBtn.addEventListener("click", () => {
+      window.location.reload();
+    });
+  };
+
+  const handleCellClick = (event, resolve) => {
+    if (!gameStarted) {
+      // Do nothing if the game hasn't started
+      return;
+    }
+    const cell = event.target.closest(".cell");
+    if (cell) {
+      const row = parseInt(cell.getAttribute("row"), 10);
+      const column = parseInt(cell.getAttribute("column"), 10);
+      resolve([row, column]);
+    }
+  };
+
   const getUserMove = () =>
     new Promise((resolve) => {
       const userBoardContainer = document.querySelector(".userBoardContainer");
 
       const handleClick = (event) => {
-        const cell = event.target.closest(".cell");
-        if (cell) {
-          const row = parseInt(cell.getAttribute("row"), 10);
-          const column = parseInt(cell.getAttribute("column"), 10);
-          userBoardContainer.removeEventListener("click", handleClick);
-          resolve([row, column]);
-        }
+        handleCellClick(event, resolve);
       };
 
       userBoardContainer.addEventListener("click", handleClick);
     });
+
+  const initializeStartBtn = () => {
+    const startBtn = document.querySelector(".startBtn");
+    startBtn.addEventListener("click", startGame, { once: true });
+  };
 
   // Function to handle cell state change
   const handleCellUpdate = (coords, missedShots, player) => {
@@ -102,14 +124,24 @@ const DOMcontroller = () => {
 
   const showWinner = (winner) => {
     const winnerModal = document.querySelector(".winnerModal");
-    const winnerMessage = winnerModal.querySelector(".winnerMessage");
+    const winnerMessage = document.createElement("div");
+    const restartBtn = document.createElement("button");
+
+    winnerMessage.classList.add("winnerMessage");
+    restartBtn.classList.add("restartBtn");
+
+    restartBtn.textContent = "Restart";
     winnerMessage.textContent = `${winner} won`;
+
+    winnerModal.append(winnerMessage, restartBtn);
     winnerModal.showModal();
+    initializeRestartBtn();
   };
 
   return {
     renderGameBoard,
     renderShips,
+    initializeStartBtn,
     initializeRestartBtn,
     getUserMove,
     handleCellUpdate,
