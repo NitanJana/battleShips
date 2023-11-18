@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
 *,
 *::before,
 *::after {
@@ -12,9 +14,23 @@ body {
   width: 100%;
 }
 
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5rem;
+  padding: 2rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+.header {
+  font-size: 5rem;
+  color: #9ae29a;
+}
+
 .boards {
   display: flex;
-  justify-content: space-around;
+  gap: 10rem;
 }
 
 .board {
@@ -29,21 +45,22 @@ body {
 .cell {
   width: 2rem;
   aspect-ratio: 1;
-  border: 1px solid blue;
+  border: 1px solid #ccccf5;
   text-align: center;
+  cursor: pointer;
 }
 
 .ship {
-  background-color: green;
+  background-color: #9ae29a;
   border: none;
 }
 
 .missed {
-  background-color: aqua;
+  background-color: #ccccf5;
 }
 
 .hit {
-  background-color: red;
+  background-color: rgb(255, 112, 112);
 }
 
 .winnerModal {
@@ -61,6 +78,8 @@ body {
 .winnerMessage {
   font-size: 1.5rem;
   font-weight: bold;
+  font-family: 'Roboto', sans-serif;
+  color: #9191ca;
 }
 
 .buttonContainer {
@@ -70,10 +89,13 @@ body {
 
 .startBtn,
 .restartBtn {
-  font-size: 1rem;
+  font-size: 1.5rem;
   padding: 0.5rem 1.5rem;
   border-radius: 1rem;
   border: none;
   outline: none;
   cursor: pointer;
+  color: #ffffff;
+  background-color: #9ae29a;
+  font-weight: 700;
 }
