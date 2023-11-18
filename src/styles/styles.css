@@ -35,6 +35,7 @@ body {
 
 .ship {
   background-color: green;
+  border: none;
 }
 
 .missed {
@@ -62,7 +63,13 @@ body {
   font-weight: bold;
 }
 
-.winnerModal .restartBtn {
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.startBtn,
+.restartBtn {
   font-size: 1rem;
   padding: 0.5rem 1.5rem;
   border-radius: 1rem;
