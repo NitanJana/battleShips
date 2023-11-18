@@ -73,7 +73,25 @@ const GameBoard = (size = 10) => {
         board[row][column + i] = ship;
       }
     }
+    ship.setStartCell(row, column);
     ships.push(ship);
+    return true;
+  };
+
+  const removeShip = (row, column) => {
+    const ship = board[row][column];
+    const startRow = ship.getStartCell()[0];
+    const startColumn = ship.getStartCell()[1];
+    if (ship.getIsVertical()) {
+      for (let i = 0; i < ship.getLength(); i += 1) {
+        board[startRow + i][startColumn] = null;
+      }
+    } else {
+      for (let i = 0; i < ship.getLength(); i += 1) {
+        board[startRow][startColumn + i] = null;
+      }
+    }
+    ships.splice(ships.indexOf(ship), 1);
     return true;
   };
 
@@ -112,6 +130,7 @@ const GameBoard = (size = 10) => {
   return {
     getBoard,
     placeShip,
+    removeShip,
     placeRandomShips,
     recieveAttack,
     getMissedShots,
