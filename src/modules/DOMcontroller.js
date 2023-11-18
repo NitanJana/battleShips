@@ -88,15 +88,18 @@ const DOMcontroller = () => {
         const newRowIndex = parseInt(newCell.getAttribute("row"), 10);
         const newColumnIndex = parseInt(newCell.getAttribute("column"), 10);
 
-        // Remove ship from old coordinates
-        gameBoard.removeShip(oldRowIndex, oldColumnIndex);
-        
-
         // Place ship in new coordinates
-        gameBoard.placeShip(newRowIndex, newColumnIndex, ship);
-
-        // Update the visual representation of the ship
-        renderShips(gameBoard);
+        
+        if (gameBoard.placeShip(newRowIndex, newColumnIndex, ship)) {
+          
+          
+          // Remove ship from old coordinates
+          gameBoard.removeShip(oldRowIndex, oldColumnIndex);
+          
+          
+          // Update the visual representation of the ship
+          renderShips(gameBoard);
+        }
       }
     });
 
