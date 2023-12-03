@@ -80,7 +80,7 @@ Contributions are welcome! Please follow these guidelines:
 
 ## Deployment
 
-Your Battleships Game Web App is hosted on GitHub Pages and can be accessed [here](https://nitanjana.github.io/battleShips/).
+Your Battleships Game is hosted on GitHub Pages and can be accessed [here](https://nitanjana.github.io/battleShips/).
 
 To deploy this project manually:
 
@@ -92,7 +92,7 @@ To deploy this project manually:
 
 2. Deploy to your hosting platform of choice.
 
-Your Battleships Game Web App is now ready for solo naval warfare against the computer AI!
+Your Battleships Game is now ready for solo naval warfare against the computer AI!
 
 ## License
 
