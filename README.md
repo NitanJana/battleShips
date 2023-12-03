@@ -2,6 +2,10 @@
 
 Welcome to the Battleships Game Web App, an exciting single-player naval warfare experience where you strategize to sink the computer-controlled fleet. Get ready for an epic battle on the high seas!
 
+![Battleships Screenshot 1](screenshots/desktop1.png)
+
+![Battleships Screenshot 2](screenshots/desktop2.png)
+
 ## Features
 
 - **Single-Player Mode:** Challenge the computer AI in a strategic naval battle.
